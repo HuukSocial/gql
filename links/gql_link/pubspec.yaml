@@ -5,8 +5,14 @@ repository: https://github.com/gql-dart/gql
 environment: 
   sdk: '>=2.12.0 <3.0.0'
 dependencies: 
-  gql: ^0.14.0
-  gql_exec: ^0.4.3
+  gql:
+    git:
+      url: https://github.com/HuukSocial/gql.git
+      path: gql
+  gql_exec:
+    git:
+      url: https://github.com/HuukSocial/gql.git
+      path: links/gql_exec
   meta: ^1.1.7
 dev_dependencies: 
   gql_pedantic: ^1.0.2
