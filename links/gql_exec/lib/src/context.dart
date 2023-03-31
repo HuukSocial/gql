@@ -41,14 +41,15 @@ abstract class ContextEntry {
 /// Context entries appear only once per type.
 @immutable
 class Context {
-  final Map<Type, ContextEntry?> _context;
+  final Map<Type, ContextEntry?> context;
 
   /// Create an empty context.
   ///
   /// Entries may be added later using [withEntry].
-  const Context() : _context = const <Type, ContextEntry>{};
+  const Context() : context = const <Type, ContextEntry>{};
 
-  const Context._fromMap(Map<Type, ContextEntry?> context) : _context = context;
+  const Context._fromMap(Map<Type, ContextEntry?> newContext)
+      : context = newContext;
 
   /// Creates a context from initial values represented as a map
   ///
@@ -68,7 +69,7 @@ class Context {
   ///
   /// If more then one entry per type is provided, the last one is used.
   Context.fromList(List<ContextEntry> entries)
-      : _context = entries.fold<Map<Type, ContextEntry>>(
+      : context = entries.fold<Map<Type, ContextEntry>>(
           <Type, ContextEntry>{},
           (ctx, e) => <Type, ContextEntry>{
             ...ctx,
@@ -88,7 +89,7 @@ class Context {
 
     return Context.fromMap(
       <Type, ContextEntry?>{
-        ..._context,
+        ...context,
         T: entry,
       },
     );
@@ -118,11 +119,11 @@ class Context {
         "does not match the expected return type '${T}'",
       );
     }
-    return _context.containsKey(T) ? _context[T] as T? : defaultValue;
+    return context.containsKey(T) ? context[T] as T? : defaultValue;
   }
 
   List<Object> _getChildren() => [
-        _context,
+        context,
       ];
 
   @override
@@ -144,5 +145,5 @@ class Context {
       );
 
   @override
-  String toString() => "Context($_context)";
+  String toString() => "Context($context)";
 }
